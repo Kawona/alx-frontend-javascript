@@ -19,14 +19,16 @@ interface Director extends Teacher {
   numberOfReports: number;
 }
 
-interface studentConstructor{
-  new(firstName: string, lastName: string): studentClassInterface;
-}
-
 interface studentClassInterface {
   workOnHomework(): string;
   displayName(): string;
 }
+
+interface studentConstructor{
+  new(firstName: string, lastName: string): studentClassInterface;
+}
+
+
 
 class studentClass implements studentClassInterface {
   firstName: string;
@@ -38,7 +40,7 @@ class studentClass implements studentClassInterface {
   }
 
   workOnHomework(): string {
-    return "currently working";
+    return "Currently working";
   }
 
   displayName(): string {
