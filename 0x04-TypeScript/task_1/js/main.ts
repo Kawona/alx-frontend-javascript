@@ -19,6 +19,33 @@ interface Director extends Teacher {
   numberOfReports: number;
 }
 
+interface studentConstructor{
+  new(firstName: string, lastName: string): studentClassInterface;
+}
+
+interface studentClassInterface {
+  workOnHomework(): string;
+  displayName(): string;
+}
+
+class studentClass implements studentClassInterface {
+  private firstName: string;
+  private lastName: string;
+
+  constructor(firstName: string, lastName: string) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  workOnHomework(): string {
+    return "currently working";
+  }
+
+  displayName(): string {
+    return this.firstName;
+  }
+}
+
 interface printTeacherFunction {
   (firstName: String, lastName: string): string;
 }
@@ -84,4 +111,8 @@ document.body.appendChild(table);
 
 console.log(teacher3);
 
-console.log(printTeacher({firstName: "John", lastName: "Doe"}));
+console.log(printTeacher({ firstName: "John", lastName: "Doe" }));
+
+const student: studentClassInterface = new studentClass("Michael", "smith");
+console.log(student.displayName());
+console.log(student.workOnHomework());
