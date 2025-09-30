@@ -29,8 +29,8 @@ interface studentClassInterface {
 }
 
 class studentClass implements studentClassInterface {
-  private firstName: string;
-  private lastName: string;
+  firstName: string;
+  lastName: string;
 
   constructor(firstName: string, lastName: string) {
     this.firstName = firstName;
