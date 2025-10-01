@@ -1,9 +1,52 @@
+import { RowID, RowElement } from "./interface";
+import * as CRUD from "./crud";
+
+const row: RowElement = {
+  firstName: "Guillaume",
+  lastName: "Salva",
+}
+
+const newRowID: RowID = CRUD.insertRow(row);
+
+const updatedRow: RowElement = {
+  ...row,
+  age: 23,
+}
+
+
+
 // 1. Define the Student interface
 interface Student {
   firstName: string;
   lastName: string;
   age: number;
   location: string;
+}
+
+interface DirectorInterface {
+  workFromHome(): string;
+  getCoffeeBreak(): string;
+  workDirectorTasks(): string;
+}
+
+interface TeacherInterface {
+  workFromHome(): string;
+  getCoffeeBreak(): string;
+  workTeacherTasks(): string;
+}
+
+class Director implements DirectorInterface {
+  workFromHome(): string {
+    return "Working from home";
+  }
+
+  getCoffeeBreak(): string {
+    return "Getting a coffee break";
+  }
+
+  workDirectorTasks(): string {
+    return "Getting to director tasks";
+  }
 }
 
 interface Teacher {
@@ -19,6 +62,21 @@ interface Director extends Teacher {
   numberOfReports: number;
 }
 
+["Math", "History", "Subjects"]
+["todayClass:Subjects", "Teaching Math", "Teaching History"]
+
+export type subjects = "Math" | "History";
+
+export function teachClass(todayClass: subjects): string {
+  if (todayClass === "Math") {
+    return "Teaching Math";
+  }
+  if (todayClass === "History") {
+    return "Teaching History";
+  }
+  return "";
+}
+
 interface studentClassInterface {
   workOnHomework(): string;
   displayName(): string;
@@ -27,6 +85,43 @@ interface studentClassInterface {
 interface studentConstructor{
   new(firstName: string, lastName: string): studentClassInterface;
 }
+
+class Teacher implements TeacherInterface {
+  workFromHome(): string {
+    return "Cannot work from home";
+  }
+
+  getCoffeeBreak(): string {
+    return "Cannot have a break";
+  }
+
+  workTeacherTasks(): string {
+    return "Getting to work";
+  }
+}
+
+function createEmployee(salary: number | string): Director | Teacher {
+  if (typeof salary === "number") {
+    if (salary < 500) {
+      return new Teacher();
+    } else {
+      return new Director();
+    }
+  }
+  return new Director();
+}
+
+export function isDirector(employee: Director | Teacher): employee is Director {
+  return (employee as Director).workDirectorTasks !== undefined;
+}
+
+export function executework(employee: Director | Teacher): string {
+  if (isDirector(employee)) {
+    return employee.workDirectorTasks();
+  }
+  return employee.workTeacherTask();
+}
+
 
 
 
@@ -118,3 +213,12 @@ console.log(printTeacher({ firstName: "John", lastName: "Doe" }));
 const student: studentClassInterface = new studentClass("Michael", "smith");
 console.log(student.displayName());
 console.log(student.workOnHomework());
+console.log(createEmployee(200));
+console.log(createEmployee(1000));
+console.log(createEmployee("$500"));
+console.log(executeWork(createEmployee(200)));
+console.log(executeWork(createEmployee(1000)));
+console.log(teachClass("Math"));
+console.log(teachClass("History"));
+CRUD.updateRow(newRowID, updatedRow);
+CRUD.deleteRow(newRowID);
