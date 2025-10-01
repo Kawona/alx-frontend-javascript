@@ -45,6 +45,9 @@ interface Director extends Teacher {
   numberOfReports: number;
 }
 
+["Math", "History", "Subjects"]
+["todayClass:Subjects", "Teaching Math", "Teaching History"]
+
 export type subjects = "Math" | "History";
 
 export function teachClass(todayClass: subjects): string {
